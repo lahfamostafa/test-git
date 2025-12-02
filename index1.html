@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="subb">
+        <input type="text" name="" id="amount" placeholder="loan">
+        <input type="number" name="" id="duration" placeholder="durée">
+        <input type="number" placeholder="salaire">
+        <button id="calculer">calculer</button>
+        <div class="result">
+            <p id="out_montant"></p>
+            <p id="duree"></p>
+            <p id="Taux"></p>
+            <p id="Mensualité"></p>
+            <p id="Total"></p>
+        </div>
+    </form>
+</body>
+<script>
+    let rate = 0;
+    const amount = document.getElementById('amount');
+    const duration = document.getElementById('duration');
+    const salaire = document.getElementById('salaire');
+    const result = document.getElementById('result');
+    const out_montant = document.getElementById('out_montant');
+    const duree = document.getElementById('duree');
+    const Taux = document.getElementById('Taux');
+    const Mensualité = document.getElementById('Mensualité');
+    const TotalO = document.getElementById('Total');
+
+
+    document.getElementById('subb').addEventListener('submit' , (e)=>{
+        e.preventDefault()
+        if (duration <= 12) {
+            rate = 0.03;
+        } else if(duration >=13 && duration <= 36){
+            rate = 0.05;
+        }else{
+            rate = 0.07;
+        }
+    
+        const total = amount * (1 + rate);
+        const mensualite = total / duration;
+    
+        if (mensualite < salaire * 0.4){
+            result.textContent = `Refusé : mensualité trop élevée (${mensualite} MAD) pour un salaire de ${salaire}.`
+        }else{
+            out_montant.textContent = `Montant demandé : ${amount}`
+            duree.textContent = `duree : ${duration}`
+            Taux.textContent = `taux : ${rate}`
+            Mensualité.textContent = `mensualite : ${mensualite}`
+            TotalO.textContent = `totale ${total}`
+        }
+        })
+</script>
+</html>
